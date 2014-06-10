@@ -43,7 +43,7 @@ routine "binary" shows you the binary form of the number in the x-register, alth
 cannot use that number for anything because it is really, still, a decimal number that just
 looks like a binary value. 101 is actually one-hundred-one, not five.)
 
-You can also type "help" <<command name>> to find out what each commands does. Once again,
+You can also type "help" < command name > to find out what each commands does. Once again,
 the possible commands can be viewed by typing "keys".
 
 COMMAND-LINE MODE
@@ -51,24 +51,24 @@ COMMAND-LINE MODE
 If you just want to make a quick calculation and then exit the program, just include your
 calculation on the command line.
 
-For example: calc 5 3 "*" <<Enter>>
+For example: calc 5 3 "*" < Enter >
 This would print the answer of 15 and automatically exit.
 
 In this example, the multiplication operator was enclosed within double quotes because the
 asterisk has a special meaning to the bash shell when used as an argument to a program.
 The operators "+", "-", and "/" can be used without the quotes.
 
-Example: calc 55 45 + <<Enter>>
+Example: calc 55 45 + < Enter >
 This would output the result of 100.
 
-If you enter a calculation like: calc 100 3 / <<Enter>>
+If you enter a calculation like: calc 100 3 / < Enter >
 you will obtain a result of 33. To get the floating point answer, enter it 
 this way: calc 100 3 / float 9
 This will yield 33.333333333
 
 This trick is not needed in interactive mode, because numbers with a decimal
 are automatically printed with 2 decimal places. However, to increase the number
-of decimal places shown, type: float n <<Enter>> (0 <= n <= 9).
+of decimal places shown, type: float n < Enter > (0 <= n <= 9).
 
 ---
 
