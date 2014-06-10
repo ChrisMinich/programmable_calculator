@@ -13,7 +13,7 @@ on separate lines. You can even enter multiple equations on just one line.
 
 Every operand that is entered goes onto a stack. When you enter an operator, two numbers
 are popped from the stack, and the result is pushed back in their place. The number at the 
-top of the stack, is x. The number just beneath x is y.
+top of the stack is x. The number just beneath x is y.
 
 Each memory (0-9) is also a stack.
 
