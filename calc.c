@@ -619,7 +619,7 @@ int main(int argc, string argv[])
 {
 	int arg = 1;
 	read_prgm();
-	if ( arg < argc ) autofloat = true;
+	if ( arg < argc ) autofloat = false;
     while ( arg < argc ) // do command line instructions
     {
         entry = argv[arg];
