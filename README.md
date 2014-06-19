@@ -61,15 +61,6 @@ The operators "+", "-", and "/" can be used without the quotes.
 Example: calc 55 45 + < Enter >
 This would output the result of 100.
 
-If you enter a calculation like: calc 100 3 / < Enter >
-you will obtain a result of 33. To get the floating point answer, enter it 
-this way: calc 100 3 / float 9
-This will yield 33.333333333
-
-This trick is not needed in interactive mode, because numbers with a decimal
-are automatically printed with 2 decimal places. However, to increase the number
-of decimal places shown, type: float n < Enter > (0 <= n <= 9).
-
 ---
 
 Well, now that you've read the introduction, please explore the program by using the 
