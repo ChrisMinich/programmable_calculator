@@ -82,7 +82,7 @@ int maxstep;
 char* buffer; // for getBuffer()
 int buffer_position = 0; // for getBuffer()
 int buffer_length; // for getBuffer()
-bool autofloat = false;
+bool autofloat = true;
 char* last_cmd = "";
 char* usrprogram = "";
 char* default_program = "default.txt";
@@ -619,7 +619,7 @@ int main(int argc, string argv[])
 {
 	int arg = 1;
 	read_prgm();
-	if ( arg < argc ) autofloat = false;
+	if ( arg < argc ) autofloat = true;
     while ( arg < argc ) // do command line instructions
     {
         entry = argv[arg];
@@ -768,9 +768,9 @@ void printfloat(long double r)
 	if ( autofloat )
 	{
 		long double r1;
-		r1 = r * 100000000;
+		r1 = r * 10000000;
 		r1 = (int) r1;
-		r1 = r1 / 100000000;
+		r1 = r1 / 10000000;
 
 		fix_val = 0;
 		int count = 0;
