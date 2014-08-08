@@ -111,12 +111,12 @@ void stringToUpper(char* strng)
 		if ( islower(strng[i]) ) strng[i] = toupper(strng[i]);
 }
 
-char* getBuffer(char prompt)
+char* getBuffer(char prompt) // Get next string from buffer
 {
 	if ( buffer_position == -1 ) return buffer; // for commandline mode
 	int start_position = buffer_position;
 	int pos = buffer_position;
-	if ( buffer_position == 0 )
+	if ( buffer_position == 0 ) // read a line from stdin
 	{
 		printf("%c ", prompt);
 		buffer = GetString();
@@ -130,7 +130,7 @@ char* getBuffer(char prompt)
 		}
 	}	
 	int count = 0;
-	do
+	do // find beginning of string
 	{
 		if ( ( buffer[pos] == ' ' ) || ( pos == buffer_length ) )
 		{
@@ -145,6 +145,7 @@ char* getBuffer(char prompt)
 		}
 	} while ( pos <= buffer_length );
 	
+	// return the string
 	char* word1 = malloc(sizeof(char) * (count + 1));
 	for ( int i = 0; i < count; i++) word1[i] = buffer[start_position + i];
 	word1[count] = '\0';	
