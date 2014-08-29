@@ -26,7 +26,7 @@ void subtract(void);
 void divide(void);
 void modulus(void);
 void y_to_x(void);
-void truncate(void);
+void truncateX(void);
 void abs_value(void);
 void sto(int mode);
 void rcl(int mode, bool pop);
@@ -548,7 +548,7 @@ int parse(string entry, int mode) // 0: interactive, 1: program, 2: trace
     else if ( strcmp(entry, "POP") == 0 ) rcl(mode, true);
     else if ( strcmp(entry, "KEYS") == 0 ) prtkeys(keys, length);
     else if ( strcmp(entry, "Y^X") == 0 ) y_to_x();
-    else if ( strcmp(entry, "INT") == 0 ) truncate();
+    else if ( strcmp(entry, "INT") == 0 ) truncateX();
     else if ( strcmp(entry, "ABS") == 0 ) abs_value();
     else if ( strcmp(entry, "%") == 0 ) modulus();
     else if ( strcmp(entry, "LBL") == 0 ) lbl(mode); 
@@ -811,7 +811,7 @@ void printfloat(long double r)
 		default: printf("%.12Lf\n", r); }
 }
 
-void truncate(void)
+void truncateX(void)
 {
     int r = (int) pop();
     push(r);
