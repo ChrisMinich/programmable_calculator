@@ -1,0 +1,4 @@
+#!/bin/bash
+# Copy this script to folder of your source file (source.c) 
+gcc -std=c99 -o $1 $2 -lm # -lm: link math library; $2 is file.c
+# gcc -o xname source.c
