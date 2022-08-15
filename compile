@@ -1,4 +1,5 @@
 #! /bin/bash
+# copy source file to recycle subfolder
 # in case the source file is mistakenly put into $1
 # because that would cause the source to be deleted
 cp $1 $2 recycle
