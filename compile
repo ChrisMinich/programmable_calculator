@@ -1,0 +1,7 @@
+#! /bin/bash
+# in case the source file is mistakenly put into $1
+# because that would cause the source to be deleted
+cp $1 $2 recycle
+clang -ggdb3 -O0 -std=c99 -Wall -Werror -o $1 $2 -lm
+# $1 = program name
+# $2 = source.c
