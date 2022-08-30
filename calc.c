@@ -17,7 +17,7 @@
 #define RETURN_STACK_SIZE 20
 #define RETURN_MAX_INDEX 19
 #define MAX_N 200
-#define MAX_PRG_SIZE 250
+#define MAX_PRG_SIZE 350
 
 void add(void);
 void mult(void);
@@ -77,7 +77,7 @@ long double num;
 int fix_val = 2;
 int step = 0;
 bool silent = false; // interactive mode: print any results of interactive commands
-int maxstep;
+int maxstep = -1;
 char* buffer; // for getBuffer()
 int buffer_position = 0; // for getBuffer()
 int buffer_length; // for getBuffer()
@@ -195,43 +195,49 @@ void start(bool trace) // run user program
 
 void read_prgm(void) // read user program
 {
-	int start_pos;
-	int count = 0;
+	int start_pos, j;
+	int count = ++maxstep;
 	
 	chdir("user");
-	
+
 	if ( strlen(usrprogram) == 0 ) usrprogram = default_program;
 	else
 	{
-		for ( int i = 0; i < maxstep; i++ ) prg[i] = "";
 		system("ls *.txt");
 		printf("load: ");
 		usrprogram = GetString();
 	}
 
-    FILE *file_in;
-    file_in = fopen(usrprogram, "r");
+	FILE *file_in;
+	file_in = fopen(usrprogram, "r");
 
-    if (file_in == NULL)
-    {
-    	printf("Error reading the file\n");
-    	program_loaded = false;
-        return;
-    }
-    else program_loaded = true;
+	if (file_in == NULL)
+	{
+		printf("Error reading the file\n");
+		program_loaded = false;
+		return;
+	}
+	else 
+	{
+		if (program_loaded) 
+		{
+			prg[count++] = "LBL";
+			prg[count++] = "USER";
+		}
+		program_loaded = true;
+	}
     
-    char line[150], buffer[150];
+	char line[150];
     
-	while ( fgets(buffer,150,file_in) )
+	while ( fgets(line,150,file_in) )
 	{
 		if ( count >= MAX_PRG_SIZE )
 		{
 			printf("Overflow error: Maximum program size reached.\n");
 			break;
 		}
-		strcpy(line, buffer);
 		start_pos = 0;
-		if ( line[0] != '#' ) // not a comment
+		if ( line[0] != '#' ) // if line is not a comment
 		{
 			for (int i = 0, length = strlen(line); i <= length; i++)
 			{
@@ -239,14 +245,16 @@ void read_prgm(void) // read user program
 				{
 					if ( i - start_pos > 0 )
 					{
-						char* word = malloc((i - start_pos) * sizeof(char));
-						for ( int j = 0; j < (i - start_pos); j++ )
-						{
+						char* word = malloc((i + 1 - start_pos) * sizeof(char));
+						for ( j = 0; j < (i - start_pos); j++ )
 							word[j] = line[j + start_pos];
-							if ( islower(word[j]) ) word[j] = toupper(word[j]);
-						}
+						word[j] = '\0';
+						stringToUpper(word);
 						prg[count++] = word;
-						start_pos = i + 1;
+//						printf(":%s:\n", word);
+
+						while (line[i] == ' ') i++;
+						start_pos = i;
 					}
 				}
 			}
@@ -256,7 +264,7 @@ void read_prgm(void) // read user program
 	fclose(file_in);
 }
 
-void stop(void) // stop user program and output x
+void stop(void) // stop user program, and print x
 {
 	bst(1);
    	if( strcmp(prg[step], "INT") == 0 ) printf("%i\n", (int) x);
@@ -297,7 +305,7 @@ void x_gt_0(void)
 
 void x_gt_1(void)
 {
-	if ( ! ( x > 1 ) ) skip_1_step();
+    if ( ! ( x > 1 ) ) skip_1_step();
 }
 
 void x_ne_0(void)
@@ -307,12 +315,12 @@ void x_ne_0(void)
 
 void x_eq_y(void)
 {
-	if ( ! ( x == y ) ) skip_1_step();
+    if ( ! ( x == y ) ) skip_1_step();
 }
 
 void x_gt_y(void)
 {
-	if ( ! ( x > y ) ) skip_1_step();
+    if ( ! ( x > y ) ) skip_1_step();
 }
 
 void lbl(int mode) // 0: interactive, 1: program, 2: trace
@@ -362,9 +370,9 @@ int find_label(int mode, char* search)
 
 int gsb(int mode)
 {
-	char* search;
-	if ( ! mode ) // interactive
-	{
+    char* search;
+    if ( ! mode ) // interactive
+        {
 		search = getBuffer('#');
 		stringToUpper(search);
 		find_label(mode, search);
@@ -375,7 +383,7 @@ int gsb(int mode)
     	mv_step(1);
     	search = prg[step];
 
-	    if ( mode == 2 ) printf("%s\n", search);
+	if ( mode == 2 ) printf("%s\n", search);
     	if ( step + 1 <= maxstep ) return_push(step);
     	else return_push(0);
     }
@@ -426,7 +434,7 @@ int find(char* search)
     do
     {     
         if (( strcmp(prg[prev_step], "LBL" ) == 0 ) && ( strcmp(search, prg[step]) == 0 ))
-        	return 1;
+            return 1;
         prev_step = step;
         mv_step(1);
     }
