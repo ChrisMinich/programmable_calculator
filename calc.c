@@ -457,7 +457,7 @@ void where()
 {
 	printf("Step %i: %s", step, prg[step]);
 	if ( ( strcmp(prg[step], "LBL") == 0 ) || ( strcmp(prg[step], "GTO") == 0 ) || ( strcmp(prg[step], "GSB") == 0 ) || 
-	( strcmp(prg[step], "STO") == 0 ) || ( strcmp(prg[step], "RCL") == 0 ) )
+	( strcmp(prg[step], "STO") == 0 ) || ( strcmp(prg[step], "RCL") == 0 )|| ( strcmp(prg[step], "POP") == 0 ) )
 	{
         printf(" %s", prg[++step]);
     }
