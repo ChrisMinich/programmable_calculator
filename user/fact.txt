@@ -1,0 +1,15 @@
+# Factorials:
+LBL FACT
+INT
+ABS
+X>1
+GTO TWO
+RTN
+LBL TWO
+STO 4
+1
+-
+GSB FACT
+POP 4
+*
+RTN

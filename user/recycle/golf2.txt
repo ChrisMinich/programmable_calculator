@@ -1,0 +1,40 @@
+# golf2.txt
+# Calculate the price of a golf club
+# each club costs "add-on" more than the previous one
+#
+# usage: iterations price add-on golf
+#
+# popx.txt
+lbl popx
+sto 9 + rcl 9 -
+rtn
+lbl golf
+sto 3
+gsb popx
+sto 2
+gsb popx
+sto i
+x>0
+gto firstclb
+rtn
+# mem i: iterations
+# mem 2: price of each club
+# mem 3: add-on factor
+# mem 4: money spent
+lbl firstclb
+0 sto 4
+rcl 2
+lbl nextclb
+rcl 4
++
+sto 4
+dsz
+gto increase
+rtn
+lbl increase
+pause
+rcl 3
+rcl 2
++
+sto 2
+gto nextclb

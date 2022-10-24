@@ -1,0 +1,17 @@
+LBL FACT
+STO I
+LBL 3
+X>1
+GTO 2
+RTN
+LBL 2
+DSZ
+STO N[I]
+1
+-
+GSB 3
+RCL N[I]
+ISZ
+*
+RTN
+Q

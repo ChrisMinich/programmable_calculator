@@ -1,0 +1,38 @@
+# Chris Minich
+# series.txt
+# display the first 20 binary numbers
+# and test n[i] array
+LBL TEST
+20
+STO 5
+LBL 1
+GSB BINARY
+STO 9
+RCL 5
+STO I
+RCL 9
+STO N[I]
+PAUSE
+RCL I
+1
+-
+STO 5
+X>0
+GTO 1
+RTN
+LBL OUTPUT
+19
+RCL I
+X>Y
+GTO END
+RCL N[I]
+ISZ
+PAUSE
+GTO OUTPUT
+LBL END
+RCL N[I]
+RTN
+LBL RTEST
+GSB TEST
+GSB OUTPUT
+RTN 

@@ -1,0 +1,15 @@
+# Chris Minich
+# Factorials:
+LBL FACT
+ABS
+X>1
+GTO TWO
+RTN
+LBL TWO
+STO 1
+1
+-
+GSB FACT
+POP 1
+*
+RTN

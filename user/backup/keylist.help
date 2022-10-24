@@ -1,0 +1,43 @@
+-: subtract x from y using RPN or postfix notation. Example: 15 5 -
+/: divide y by x using RPN or postfix notation. Example: 20 5 /
+*: multiply y * x using RPN or postfix notation. If you ever do this from the command line, it must be placed inside double quotes: ./calc 3 4 "*"
+%: y modulus x using RPN or postfix notation. Example 8 2 %
++: y + x using RPN or postfix notation. Example 15 5 +
+ABS: absolute value
+B: shortcut for back-step. (When you are looking at a program step, it takes you one step backwards.)
+BEGIN: set program pointer to the first statement.
+BST: back-step. When you are looking at a program step, it takes you one step backwards.
+CLEAR: clear the stack.
+DSZ: de-increment memory I and skip the next statement if the value of I is now zero.
+F: shortcut for forward step. (Move forward a step with the program pointer. Does not execute the instruction.)
+FLOAT: set the number of decimal places to display. FLOAT 0 sets it to automatic mode.
+FST: forward step. Move forward a step with the program pointer. Does not execute the instruction.
+GSB: gosub. Execute a subroutine. Usage: GSB LABEL
+GTO: goto. Move program pointer to a label. Or use .00n to go to a statement number. To go to statement 10: gto .010
+HELP: tips from this file, delivered via the grep command.
+INT: integer. Truncate x.
+ISZ: increment memory I and skip the next statement if the value of I is now zero.
+KEYS: show a list of commands.
+LABELS: show a list of labels.
+LBL: label. The next word is the label. Example: LABEL <ANYWORD>
+LOAD: load a new user program, replacing the current user program.
+N[I]: the value of the array, N, at the index I. You can do this: STO N[I], and this RCL N[I] 
+OFF: exit the calculator.
+POP: pop a memory value from its stack. Memories 0-9 are all stacks. POP recalls (and removes) the most recent value stored there. 
+Q: quit. Just like OFF.
+RCL: show the value at the top of a memory register stack. Or show the value of I. Also note that special memory I, when popped, is actually just recalled.
+R/S: run/start. In interactive mode it starts the program at the current pointer (see WHERE). R/S stops execution from the program, itself.
+RTN: return. Return from subroutine call, and continue at the next step. A call-stack keeps track of this.
+S: shortcut for single-stepping through the program as you execute it. Handy for tracing (debugging) the user program.
+SHELL: use a subset of shell commands to display the user directory. Enabled commands: cat, ls, gedit, grep, head, less, man, tail, vi
+SST: single-step through the program as you execute it. Handy for tracing (debugging) the user program.
+STACK: display the values stored on the main stack. The most recent values are y and x, respectively.
+STO: store a value in memory 0-9, I, or N[I]. Memories 0-9 are actually stacks.
+WHERE: display the position of the program pointer. If you type R/S, execution will begin at this location.
+X<0: if x<0 do the next step, otherwise skip one step.
+X>0: if x>0 do the next step, otherwise skip one step.
+X!=0: if x is not equal to 0 do the next step, otherwise skip one step.
+X>1: if x>1 do the next step, otherwise skip one step.
+X=Y: if x=y do the next step, otherwise skip one step. 
+X>Y: if x>y do the next step, otherwise skip one step. 
+Y^X: compute y to the power of x.

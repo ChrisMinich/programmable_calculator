@@ -1,0 +1,57 @@
+lbl prime
+# mem 5 - original number
+# mem 4 - square root of number (maximum factor)
+# mem i - factor 1
+# mem 7 - factor 2
+#
+int
+sto 5
+1
+rcl 5
+x>y
+gto prprm
+0 rtn
+#
+# Printed 0 since prime numbers > 1
+#
+lbl prprm
+gsb root 
+int
+sto i
+sto 7
+sto 4
+rcl 4
+*
+rcl 5
+x=y
+# then number has a square root
+gto notprime
+#
+1 sto i
+lbl prmloop
+isz
+# i will never be zero
+rcl 4
+rcl i
+x>y gto isprime
+rcl 5
+rcl i
+/
+sto 7
+int
+rcl 7
+x=y gto notprime
+gto prmloop
+####
+lbl isprime
+1
+rtn
+####
+lbl notprime
+rcl i
+pause
+rcl 7
+pause
+*
+rtn
+

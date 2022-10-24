@@ -1,0 +1,4 @@
+# popx.txt
+lbl popx
+sto 9 + rcl 9 -
+rtn

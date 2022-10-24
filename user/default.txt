@@ -1,0 +1,217 @@
+# Chris Minich
+# Factorials:
+LBL FACT
+INT
+ABS
+X>1
+GTO TWO
+RTN
+LBL TWO
+STO 4
+1
+-
+GSB FACT
+POP 4
+*
+RTN
+# Binary:
+LBL BINARY
+INT 
+X!=0 
+STO 1 
+STO 0 
+1 
+STO I 
+0 
+STO 2 
+RCL 0 
+LBL 7 
+2 
+% 
+X!=0 
+GTO 5 
+GTO 6 
+LBL 5 
+GSB 8 
+RCL 2 
++ 
+STO 2 
+RCL 3 
+STO I 
+LBL 6 
+RCL 0 
+2 
+/ 
+INT 
+STO 0 
+ISZ 
+RCL 0 
+X!=0 
+GTO 7 
+RCL 2 
+INT
+RTN 
+LBL 8 
+RCL I 
+STO 3 
+1 
+LBL 0 
+DSZ 
+GTO 9 
+RTN 
+LBL 9 
+10 
+* 
+GTO 0
+# Square (and Cube) roots:
+# ORIG NUM: MEM 5
+# LOWER BOUND: MEM 1
+# UPPER BOUND: MEM 2
+# TEMP: MEM 3
+# COUNT: I
+LBL CUBEROOT
+LBL CROOT
+STO 5
+-1 STO 9
+RCL 5
+#
+LBL SQROOT
+LBL ROOT
+STO 5
+STO 2
+0 STO 1 STO 3
+75 STO I
+#
+LBL LOOP
+RCL 1 RCL 2 + 2 / STO 3
+RCL 9
+X<0
+GTO CUBE
+RCL 3
+RCL 3
+*
+GTO COMPARE
+LBL CUBE
+RCL 3
+RCL 3
+RCL 3
+* *
+LBL COMPARE
+RCL 5
+X=Y
+GTO RESULT
+X>Y
+GTO GREATER
+# LESSER
+RCL 3
+STO 2
+GTO RESUME
+#
+LBL GREATER
+RCL 3
+STO 1
+#
+LBL RESUME
+DSZ
+GTO LOOP
+#
+LBL RESULT
+0 STO 9
+RCL 3
+RTN
+lbl prime
+# mem 5 - original number
+# mem 4 - square root of number (maximum factor)
+# mem i - factor 1
+# mem 7 - factor 2
+#
+int
+sto 5
+1
+rcl 5
+x>y
+gto prprm
+0 rtn
+#
+# Printed 0 since prime numbers > 1
+#
+lbl prprm
+gsb root 
+int
+sto i
+sto 7
+sto 4
+rcl 4
+*
+rcl 5
+x=y
+# then number has a square root
+gto notprime
+#
+1 sto i
+lbl prmloop
+isz
+# i will never be zero
+rcl 4
+rcl i
+x>y gto isprime
+rcl 5
+rcl i
+/
+sto 7
+int
+rcl 7
+x=y gto notprime
+gto prmloop
+####
+lbl isprime
+1
+rtn
+####
+lbl notprime
+rcl i
+pause
+rcl 7
+pause
+*
+rtn
+# golf.txt
+# Calculate the price of a golf club
+# each club costs "add-on" more than the previous one
+#
+# usage: iterations price add-on golf
+#
+# popx.txt
+lbl popx
+sto 9 + rcl 9 -
+rtn
+lbl golf
+sto 3
+gsb popx
+sto 2
+gsb popx
+sto i
+x>0
+gto firstclb
+rtn
+# mem i: iterations
+# mem 2: price of each club
+# mem 3: add-on factor
+# mem 4: money spent
+lbl firstclb
+0 sto 4
+rcl 2
+lbl nextclb
+rcl 4
++
+sto 4
+dsz
+gto increase
+rtn
+lbl increase
+pause
+rcl 3
+rcl 2
++
+sto 2
+gto nextclb
