@@ -980,18 +980,20 @@ void sto_push(int mem_num, long double num)
 	if ( register_index[mem_num] < 0 ) register_index[mem_num] = 0;
 	else register_index[mem_num]++;
 	
-	if ( register_index[mem_num] <= MAX_INDEX ) mem[mem_num][register_index[mem_num]] = num;
+	if ( register_index[mem_num] <= MAX_INDEX ) mem[mem_num][register_index[mem_num]] = num; // 2023: was <=
 	else
 	{
 		int i;
 		
-		for ( i = 0; i < ( MAX_INDEX ); i++ )
-        {
-        	mem[mem_num][register_index[mem_num]] = mem[mem_num][register_index[mem_num + 1]];
-            // stack[i] = stack[i+1];
-        }
-        register_index[mem_num] = MAX_INDEX; // stack_index = ( MAX_INDEX );
-        mem[mem_num][register_index[mem_num]] = num; // stack[stack_index] = num;		
+		for ( i = 0; i <= ( MAX_INDEX ); i++ ) // 2023 test - was <
+        	{
+        		register_index[mem_num] = i;
+        		mem[mem_num][register_index[mem_num]] = mem[mem_num][register_index[mem_num] + 1];
+        		// mem[mem_num][register_index[mem]] = mem[mem_num][register_index[mem]];
+            		// stack[i] = stack[i+1];
+        	}
+        	register_index[mem_num] = MAX_INDEX; // stack_index = ( MAX_INDEX );
+        	mem[mem_num][register_index[mem_num]] = num; // stack[stack_index] = num;		
 	}
 }
 
