@@ -17,7 +17,8 @@
 #define RETURN_STACK_SIZE 20
 #define RETURN_MAX_INDEX 19
 #define MAX_N 200
-#define MAX_PRG_SIZE 450
+#define MAX_PRG_SIZE 500
+#define PI 3.141592654
 
 void add(void);
 void mult(void);
@@ -45,6 +46,8 @@ void fixed_decimal(void);
 void printfloat(long double r);
 void printstack(void);
 void clearstack(void);
+void pi(void);
+void init_mems(void);
 void prnt_mems(void);
 void prtkeys(string keys[], int key_count);
 int arr_size(string arr[]);
@@ -71,7 +74,7 @@ long double n_reg[MAX_N];
 int register_index[REGISTERS]; //since mem 0-9 are stacks, each one has an index
 long double mem[REGISTERS][STACK_SIZE];
 string entry;
-string keys[] = { "STO", "RCL", "POP", "/", "*", "-", "+", "Y^X", "INT", "ABS", "%", "OFF", "STACK", "CLEAR", "KEYS", "LBL", "ISZ", "DSZ", "N[I]", "X<0", "X>0", "X>1", "X=Y", "X>Y", "X!=0" ,"GTO", "GSB", "HELP", "RTN", "R/S", "SST", "S", "BST", "B", "FST", "F", "FLOAT", "PAUSE", "WHERE", "BEGIN", "LABELS", "LOAD", "SHELL", "MEM", "Q" }; // 2023
+string keys[] = { "STO", "RCL", "POP", "/", "*", "-", "+", "Y^X", "INT", "ABS", "%", "PI", "OFF", "STACK", "CLEAR", "KEYS", "LBL", "ISZ", "DSZ", "N[I]", "X<0", "X>0", "X>1", "X=Y", "X>Y", "X!=0" ,"GTO", "GSB", "HELP", "RTN", "R/S", "SST", "S", "BST", "B", "FST", "F", "FLOAT", "PAUSE", "WHERE", "BEGIN", "LABELS", "LOAD", "SHELL", "MEM", "Q" }; // 2023
 string prg[MAX_PRG_SIZE];
 bool is_key;
 long double num;
@@ -88,9 +91,24 @@ char* usrprogram = ""; // test: was empty string "" 2023
 char* default_program = "default.txt";
 bool program_loaded = false;
 
+void pi(void)
+{
+	push(PI);
+}
+
+void init_mems(void)
+{
+	for (int i = 0; i < REGISTERS; i++) register_index[i] = -1;
+}
+
 void prnt_mems(void) // 2023
 {
-	for (int i = 0; i < 10; i++) { printf("%i: ", i); printfloat(mem[i][register_index[i]]); }
+	for (int i = 0; i < REGISTERS; i++)
+	{
+		printf("%i: ", i);
+		if (register_index[i] < 0) printf("empty\n");
+		else printfloat(mem[i][register_index[i]]);
+	}
 }
 
 
@@ -561,6 +579,7 @@ int parse(string entry, int mode) // 0: interactive, 1: program, 2: trace
     else if ( strcmp(entry, "STO") == 0 ) sto(mode);
     else if ( strcmp(entry, "RCL") == 0 ) rcl(mode, false);
     else if ( strcmp(entry, "POP") == 0 ) rcl(mode, true);
+    else if ( strcmp(entry, "PI") == 0 ) pi();
     else if ( strcmp(entry, "KEYS") == 0 ) prtkeys(keys, length);
     else if ( strcmp(entry, "Y^X") == 0 ) y_to_x();
     else if ( strcmp(entry, "INT") == 0 ) truncateX();
@@ -636,6 +655,7 @@ int parse(string entry, int mode) // 0: interactive, 1: program, 2: trace
 int main(int argc, string argv[])
 {
     int arg = 1;
+    init_mems();
     read_prgm();
     if ( arg < argc ) autofloat = true;
     while ( arg < argc ) // do command line instructions
