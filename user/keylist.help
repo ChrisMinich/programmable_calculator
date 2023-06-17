@@ -27,7 +27,7 @@ OFF: exit the calculator.
 PI: 3.141592654
 POP: pop a memory value from its stack. Memories 0-9 are all stacks. POP recalls (and removes) the most recent value stored there. 
 Q: quit. Just like OFF.
-RCL: show the value at the top of a memory register stack. Or show the value of I. Also note that special memory I, when popped, is actually just recalled.
+RCL: show the value at the top of a memory register stack. Or show the value of I. Memory I, when popped, is just recalled.
 R/S: run/start. In interactive mode it starts the program at the current pointer (see WHERE). R/S stops execution from the program, itself.
 RTN: return. Return from subroutine call, and continue at the next step. A call-stack keeps track of this.
 S: shortcut for single-stepping through the program as you execute it. Handy for tracing (debugging) the user program.
