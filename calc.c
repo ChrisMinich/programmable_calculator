@@ -985,7 +985,7 @@ void sto_push(int mem_num, long double num)
 	{
 		int i;
 		
-		for ( i = 0; i <= ( MAX_INDEX ); i++ ) // 2023 test - was <
+		for ( i = 0; i < ( MAX_INDEX ); i++ )
         	{
         		register_index[mem_num] = i;
         		mem[mem_num][register_index[mem_num]] = mem[mem_num][register_index[mem_num] + 1];
