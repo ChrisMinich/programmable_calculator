@@ -21,8 +21,10 @@ KEYS: show a list of commands.
 LABELS: show a list of labels.
 LBL: label. The next word is the label. Example: LABEL <ANYWORD>
 LOAD: load a new user program, replacing the current user program.
+MEM: show the current contents of memory registers 0-9.
 N[I]: the value of the array, N, at the index I. You can do this: STO N[I], and this RCL N[I] 
 OFF: exit the calculator.
+PI: 3.141592654
 POP: pop a memory value from its stack. Memories 0-9 are all stacks. POP recalls (and removes) the most recent value stored there. 
 Q: quit. Just like OFF.
 RCL: show the value at the top of a memory register stack. Or show the value of I. Also note that special memory I, when popped, is actually just recalled.
