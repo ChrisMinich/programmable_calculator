@@ -89,7 +89,6 @@ bool autofloat = true;
 char* last_cmd = "";
 char* usrprogram = ""; // test: was empty string "" 2023
 char* default_program = "default.txt";
-bool program_loaded = false;
 
 void pi(void)
 {
@@ -221,7 +220,9 @@ void start(bool trace) // run user program
 void read_prgm(void) // read user program
 {
 	int start_pos, j;
+	int previous_max = maxstep;
 	int count = ++maxstep;
+	bool overflow = false;
 	
 	chdir("user");
 
@@ -236,29 +237,21 @@ void read_prgm(void) // read user program
 	FILE *file_in;
 	file_in = fopen(usrprogram, "r");
 
-	if (file_in == NULL)
+	while (file_in == NULL)
 	{
-		printf("Error reading the file\n");
-		program_loaded = false;
-		exit(0);
+		printf("Error reading the file\nload: ");
+		usrprogram = GetString();
+		file_in = fopen(usrprogram, "r");
 	}
-	else 
-	{
-		if (program_loaded) 
-		{
-			prg[count++] = "LBL";
-			prg[count++] = "USER";
-		}
-		program_loaded = true;
-	}
-    
+
 	char line[150];
     
 	while ( fgets(line,150,file_in) )
 	{
 		if ( count >= MAX_PRG_SIZE )
 		{
-			printf("Overflow error: Maximum program size reached.\n");
+			printf("Overflow error: Program not loaded.\n");
+			overflow = true;
 			break;
 		}
 		start_pos = 0;
@@ -285,7 +278,8 @@ void read_prgm(void) // read user program
 			}
 		}
 	}
-	maxstep = --count;
+	if (overflow) maxstep = previous_max;
+	else maxstep = --count;
 	fclose(file_in);
 }
 
